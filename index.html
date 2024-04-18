@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询手机号和QQ</title>
+    <style>
+        body {
+            background-color: royalblue;
+        }
+        .container {
+            width: 33%;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 100px;
+        }
+		
+			  
+		   
+			
+    </style>
+</head>
+<body>
+	<h3 style="text-align: center;">查询手机号和QQ</h3>
+    <br />
+	<br />
+    <div class="container">
+		
+        <div >
+            <label for="phone">手机号：</label>
+            <input type="text" id="phone" placeholder="请输入手机号">
+            <button onclick="queryPhone()">查询</button>
+        </div>
+		<br />
+		<br />
+        <div >
+            <label for="qq">Q &nbsp;&nbsp;&nbsp;&nbsp;Q：</label>
+            <input type="text" id="qq" placeholder="请输入QQ">
+            <button onclick="queryQQ()">查询</button>
+        </div>
+    </div>
+    <script>
+        function queryPhone() {
+            const phone = document.getElementById('phone').value;
+            fetch(`https://zy.xywlapi.cc/qqphone?phone=${phone}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200) {
+                        alert("查询成功  绑定的QQ号是" + data.qq + "   号码归属地：" + data.phonediqu);
+                    } else {
+                        alert("没有数据");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function queryQQ() {
+            const qq = document.getElementById('qq').value;
+            fetch(`https://zy.xywlapi.cc/qqapi?qq=${qq}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200) {
+                        alert("查询成功  手机号码" + data.phone + "   号码归属地：" + data.phonediqu);
+                    } else {
+                        alert("没有数据");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
